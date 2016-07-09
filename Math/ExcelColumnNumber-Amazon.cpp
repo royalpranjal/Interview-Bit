@@ -1,4 +1,5 @@
 // https://www.interviewbit.com/problems/excel-column-number/
+
 int Solution::titleToNumber(string A) {
     // Do not write main() function.
     // Do not read input, instead use the arguments to the function.
