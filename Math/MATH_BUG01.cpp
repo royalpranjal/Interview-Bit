@@ -1,4 +1,4 @@
-// https://www.interviewbit.com/problems/math_bug01/
+//  https://www.interviewbit.com/problems/math_bug01/
 
 // Return 1 if A is prime, else 0
 int Solution::isPrime(int A) {
