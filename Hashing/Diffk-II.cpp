@@ -1,4 +1,4 @@
-// https://www.interviewbit.com/problems/diffk-ii/
+//  https://www.interviewbit.com/problems/diffk-ii/
 
 int Solution::diffPossible(const vector<int> &A, int B) {
     // Do not write main() function.
