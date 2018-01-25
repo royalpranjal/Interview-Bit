@@ -1,4 +1,6 @@
 int Solution::nTriang(vector<int> &A) {
+    // 2 pointer solution
+    
     int ans = 0, n = A.size(), num = pow(10, 9) + 7;
     
     if(!n){
