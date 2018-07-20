@@ -1,6 +1,8 @@
 // https://www.interviewbit.com/problems/min-steps-in-infinite-grid/
 // Input : X and Y co-ordinates of the points in order.
 // Each point is represented by (X[i], Y[i])
+
+// Explanatory code
 /*
 int Solution::coverPoints(vector<int> &X, vector<int> &Y) {
 
@@ -41,6 +43,7 @@ int Solution::coverPoints(vector<int> &X, vector<int> &Y) {
 }
 */
 
+// Concise code
 int coverPoints(vector<int> &X, vector<int> &Y) {
 
     int size1=X.size(),size2=Y.size(),ans=0;
