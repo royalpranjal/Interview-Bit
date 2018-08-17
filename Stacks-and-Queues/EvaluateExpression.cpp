@@ -9,18 +9,18 @@ int Solution::evalRPN(vector<string> &A) {
     stack<int> st;
     
     for(int i = 0; i < A.size(); i++){
-        if(A[i] == "+" || A[i] == "-" || A[i] == "*" || A[i] == "/"){
+        if(A[i][0] == "+" || A[i][0] == "-" || A[i][0] == "*" || A[i][0] == "/"){
             int first = st.top();
             st.pop();
             int second = st.top();
             st.pop();
-            if(A[i] == "+"){
+            if(A[i][0] == "+"){
                 st.push(second+first);
             }
-            else if(A[i] == "-"){
+            else if(A[i][0] == "-"){
                 st.push(second-first);
             }
-            else if(A[i] == "*"){
+            else if(A[i][0] == "*"){
                 st.push(second*first);
             }
             else{
