@@ -1,26 +1,19 @@
-#include <iostream>
-
-
-int main()// main fibonacci program
-{
-	int fib1 = 0;
-	int fib2 = 1;
-	int fib3 = 0;
-	int c;
-    int sum=0;
-	//decalare all variables
-	std::cout << "How many fibonacci numbers do you want to sum?" << std::endl;
-	std::cin >> c;
-	//get user input and print the first "0" and "1"
-	std::cout << fib1 << std::endl;;
-	std::cout << fib2 << std::endl;
-	for (int i = 0; i < c; i++)// Looping though the fibonacci algorithm
-	{
-		fib3 = fib1 + fib2;
-        sum += fib3;
-		fib1 = fib2;
-		fib2 = fib3;
-	}
-    std::cout<<sum<<endl;
-    return 0;
+int Solution::fibsum(int n) {
+    vector <int> fib;
+ 		fib.push_back(1);fib.push_back(1);      // now u have 1 and 1 at v[0] and v[1]
+ 		for(int i=2;fib[i-1]<n;i++){
+ 			int val=fib[i-1]+fib[i-2];
+ 			fib.push_back(val);
+		 }
+		 int ans=0;
+		 int size=fib.size();
+		 size--;
+		 while(n>0){
+		 	while(fib[size]>n){        // find the largest fibonaci number less tahn n
+		 		size--;
+			 }                         // now decraese the largest fibonaici number from n
+			 n=n-fib[size];
+			 ans++;
+		 }
+		 return ans;
 }
