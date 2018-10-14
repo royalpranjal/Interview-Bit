@@ -9,9 +9,9 @@ int Solution::fibsum(int n) {
 		 int size=fib.size();
 		 size--;
 		 while(n>0){
-		 	while(fib[size]>n){        // find the largest fibonaci number less tahn n
+		 	while(fib[size]>n){        // find the largest fibonaci number < n
 		 		size--;
-			 }                         // now decraese the largest fibonaici number from n
+			 }                         // now decraese the largest fibonaci number from n
 			 n=n-fib[size];
 			 ans++;
 		 }
