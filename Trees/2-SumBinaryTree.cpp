@@ -78,3 +78,89 @@ int Solution::t2Sum(TreeNode* A, int B) {
     
     return 0;
 }
+
+/*
+Another method if you are unable to get above method, although both of them work the same.
+*/
+
+
+// bool isPairPresent(int K, TreeNode* A, TreeNode* B, stack<TreeNode*> s1, stack<TreeNode*> s2){
+//     // Base Case
+//     if(!A)return 0;
+
+//     // Go to the extreme left
+//     while(A){
+//         s1.push(A);
+//         A = A ->left;
+//     }
+//     // Go to the extreme right
+//     while(B){
+//         s2.push(B);
+//         B = B->right;
+//     }
+
+//     Get the lowest and highest elements.
+//     A = s1.top(); s1.pop();
+//     B = s2.top(); s2.pop();
+    
+//     // Make the extremes as lowest and highest values (coz BST)
+//     int low = A->val, high = B->val;
+//     bool b1 = true;
+//     bool b2 = true;
+//     // While we don't cross the two pointers
+//     while(low < high){
+//         // Return if we have found the sum
+//         if(low + high == K)return 1;
+//         // If the sum is less, increase the lower pointer only.
+//         if(low + high < K){
+//             b2 = false;
+//             b1 = true;
+//         }
+//         // Else decrement the higher pointer only.
+//         else {
+//             b2 = true;
+//             b1 = false;
+//         }
+//         if(b1){
+//             // If the pointer is not NULL, take it to the extreme left
+//             // of its right child
+//             if(A){
+//                 A = A->right;
+//                 while(A){
+//                     s1.push(A);
+//                     A = A->left;
+//                 }
+//             }
+//             // Else just pop the top of the stack and make it as the lowest pointer.
+//             else {
+//                 A = s1.top();
+//                 s1.pop();
+//                 low = A->val;
+//             }
+//         }
+//         // Same as above.
+//         else if(b2){
+            
+//             if(B){
+//                 B = B->left;
+//                 while(B){
+//                     s2.push(B);
+//                     B = B->right;
+//                 }
+//             }else {
+//                 B = s2.top();
+//                 s2.pop();
+//                 high = B->val;
+//             }
+//         }
+//     }
+//     return 0;
+// }
+
+// int Solution::t2Sum(TreeNode* A, int B) {
+//     stack<TreeNode*> s1, s2;
+
+//     TreeNode *head1 = A, *head2 = A;
+    
+//     return isPairPresent(B, head1, head2, s1, s2);
+// }
