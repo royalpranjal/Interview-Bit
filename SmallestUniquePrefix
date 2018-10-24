@@ -1,0 +1,20 @@
+arx = ["zebra", "dog","duck", "dove"]
+
+
+def find_prefix(arr: list, i=1):
+    ar = [a[:i] for a in arr]
+    if len(set(ar)) == len(ar):
+        return ar
+    an =[]
+    for j in range(len(ar)-1, -1, -1):
+        if ar.count(ar[j]) == 1:
+            an.append(ar[j])
+            del arr[j]
+    return an+find_prefix(arr, i+1)
+
+
+print(find_prefix(arx))
+
+
+
+
