@@ -1,0 +1,37 @@
+bool compare(vector<int> v1,vector<int> v2)
+{
+    int n = v1.size();
+    int m = v2.size();
+    if(n>2 || m>2)  return true;
+    int i,j;
+    j = upper_bound(v2.begin(),v2.end(),v1[0])-v2.begin();
+    if(j == m)
+        return false;
+    i = upper_bound(v2.begin(),v2.end(),v1[1])-v2.begin();
+    if(i == j)
+        i++;
+    return i<m;
+}    
+int Solution::anytwo(string A) 
+{
+    int n = A.size();
+    int i;
+    map<char,vector<int> > mp;
+    for(i=0;i<n;i++)
+        mp[A[i]].push_back(i);
+    for(auto it = mp.begin(); it!=mp.end(); it++)
+    {
+        if(it->second.size() == 1)
+            continue;
+        if(it->second.size()>2)
+            return 1;
+        for(auto jt = mp.begin(); jt != mp.end(); jt++)
+        {
+            if(it == jt || jt->second.size() == 1)
+                continue;
+            if(compare(it->second,jt->second)) 
+                return 1;
+        }
+    }
+    return 0;
+}
