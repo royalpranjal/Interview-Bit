@@ -28,9 +28,8 @@ int rec(int n)
     }
     else
         left += rem;
-    //cout<<"solve "<<n<<" left = "<<left<<" right = "<<right<<" ";
+
     return dp[n] = (((rec(left)*1LL*rec(right))%MOD)*1LL*comb[n-1][left])%MOD;
-    
 }
 int Solution::solve(int A)
 {
