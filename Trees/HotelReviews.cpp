@@ -1,107 +1,115 @@
-// https://www.interviewbit.com/problems/hotel-reviews/
-
 struct TrieNode{
-    unordered_map<char,TrieNode*> children;
-    bool is_word;
-    TrieNode(bool x) : is_word(x) {}
+    bool isWord;
+    unordered_map<char, TrieNode*> children;
+    TrieNode(bool word): isWord(word) {}
 };
- 
-struct ResNode{
-    int index;
-    int val;
+
+struct res {
+    int index, score;
 };
- 
-bool myfunction (ResNode i,ResNode j) {
-    bool ret = 0;
-    if(i.val>j.val){
-        ret=1;
-    }
-    else if(i.val==j.val){
-        if(i.index<j.index){
-            ret=1;
+
+void tokenize (string good_string, vector<string> &goodWords) {
+    good_string += "_";
+    string temp="";
+    
+    for (int i=0; i<good_string.length(); i++) {
+        if (good_string[i]!='_') {
+            temp += good_string[i];
+        } else {
+            if (temp.length()) {
+                goodWords.push_back(temp);
+                temp = "";
+            }
         }
     }
+}
+
+bool sortByScore (res lhs, res rhs) {
+    if (lhs.score > rhs.score) return true;
+    else if (lhs.score == rhs.score) return lhs.index < rhs.index;
+    return false;
+}
+
+void constructTrie(TrieNode* A, vector<string> goodWords) {
+    TrieNode* current = A;
+    
+    for (int i=0; i<goodWords.size(); i++) {
+        current = A;
+        
+        for (int j=0; j<goodWords[i].length(); j++) {
+            auto it = (current->children).find(goodWords[i][j]);
+            
+            if (it != (current->children).end()) {
+                current = it->second;
+            } else {
+                
+                TrieNode* B = new TrieNode(false);
+                (current->children)[goodWords[i][j]] = B;
+                current = B;
+                
+            }
+            
+            if (j == goodWords[i].length()-1) current->isWord = true;
+        }
+    }
+    
+}
+
+vector<int> sortReviews(vector<string> reviews, TrieNode* root) {
+    int score;
+    vector<res> result;
+    TrieNode* current;
+    
+    vector<string> temp;
+    
+    
+    
+    for (int i=0; i<reviews.size(); i++) {
+        res t;
+        temp.clear();
+        score = 0;
+        reviews[i] +=  "_";
+        tokenize(reviews[i], temp);
+        
+        for (int j=0; j<temp.size(); j++) {
+            current = root;
+            for (int k=0; k<temp[j].length(); k++) {
+                
+                auto it = (current->children).find(temp[j][k]);
+                if (it == (current->children).end()) {
+                    break;
+                }
+                
+                current = it->second;
+                
+                if (k == temp[j].length()-1 && current->isWord) score++; 
+            }
+        }
+        t.index = i;
+        t.score = score;
+        result.push_back(t);
+    }
+    
+    sort(result.begin(), result.end(), sortByScore);
+    
+    vector<int> ret;
+    
+    for (int i=0; i<result.size(); i++) {
+        ret.push_back(result[i].index);
+    }
+    
     return ret;
 }
- 
-void construct_trie(string good_words, TrieNode* A){
-    TrieNode* current = A;
-    for(int i=0; i<good_words.length(); i++){
 
-        if(good_words[i]=='_'){
-            current=A;
-            continue;
-        }
-        else{
-            unordered_map<char,TrieNode*>::iterator it = (current->children).find(good_words[i]);
-            if(it != (current->children).end()){
-                current = it->second;
-            }
-            else{
-                TrieNode* B = new TrieNode(0);
-                (current->children)[good_words[i]] = B;
-                current=B;
-            }
-            if(i==good_words.length()-1 || good_words[i+1]=='_'){
-                current->is_word = 1;
-            }
-        }
-    }
-}
- 
-int solveReview(TrieNode* A, string review){
-    int result = 0;
-    review = review+"_";
-    vector<string> arr;
-    int start = 0;
-    for(int i=0; i<review.length(); i++){
-        if(review[i]=='_'){
-            if(start!=i){
-                arr.push_back(review.substr(start,i-start));
-            }
-            start = i+1;
-        }
-    }
-    for(int i=0; i<arr.size(); i++){
-        TrieNode* current = A;
-        for(int j=0; j<arr[i].length(); j++){
-            unordered_map<char,TrieNode*>::iterator it = (current->children).find(arr[i][j]);
-            if(it != (current->children).end()){
-                current = it->second;
-            }
-            else{
-                break;
-            }
-            if(j==arr[i].length()-1){
-                if(current->is_word == 1){
-                    result++;
-                }
-            }
-        }
-    }
-    return result;
-}
- 
-vector<int> Solution::solve(string good_words, vector<string> &reviews) {
-	// Do not write main() function.
-    // Do not read input, instead use the arguments to the function.
-    // Do not print the output, instead return values as specified
-    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
-	
-    vector<int> result;
-    vector<ResNode> temp_res;
-    TrieNode* A = new TrieNode(0);
-    construct_trie(good_words, A);
- 
-    for(int i=0; i<reviews.size(); i++){
-        ResNode res;
-        res.val = solveReview(A,reviews[i]);
-        res.index = i;
-        temp_res.push_back(res);
-    }
-    sort(temp_res.begin(),temp_res.end(),myfunction);
-    for(int i=0; i<temp_res.size(); i++){
-        result.push_back(temp_res[i].index);
-    }
+vector<int> Solution::solve(string A, vector<string> &B) {
+    TrieNode* root = new TrieNode(false);
+    vector<string> good_words;
+    
+    tokenize(A, good_words);
+    
+    constructTrie(root, good_words);
+    
+    vector<int> result = sortReviews(B, root);
+    
     return result;
 }
