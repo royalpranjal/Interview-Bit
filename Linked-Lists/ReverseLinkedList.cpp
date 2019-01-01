@@ -29,3 +29,15 @@ ListNode* Solution::reverseList(ListNode* A) {
     
     return prev;
 }
+
+// A recursive implementation for the same problem.
+// 
+// ListNode* Solution::reverseList(ListNode* A) {
+//     if(!A || !A->next)return A;
+    
+//     ListNode* head = A->next;
+//     ListNode* p = reverseList(A->next);
+//     A->next->next = A;
+//     A->next = NULL;
+//     return p;
+// }
