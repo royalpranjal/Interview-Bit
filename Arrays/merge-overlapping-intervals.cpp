@@ -29,11 +29,11 @@ vector<Interval> Solution::merge(vector<Interval> &A) {
         }
         else if(A[i].end>top.end)
         {
-            s.end=A[i].end;
+            top.end=A[i].end;
         }
         
     }
     
-    sol.push_back(s);
+    sol.push_back(top);
     return sol;
 }
