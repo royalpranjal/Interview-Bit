@@ -7,8 +7,7 @@
  *     ListNode *next;
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
- */
- 
+
 ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
     // Do not write main() function.
     // Do not read input, instead use the arguments to the function.
@@ -87,4 +86,33 @@ ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
     }
 
     return head;
+}
+*/
+
+ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
+    
+    ListNode* res = NULL;
+    ListNode* prev = NULL;
+    ListNode* temp = NULL;
+    int carry = 0, sum;
+    
+    while(A!=NULL || B!=NULL)
+    {
+        sum = carry + (A?A->val:0) + (B?B->val:0);
+        carry = (sum >= 10)?1:0;
+        sum = sum%10;
+        
+        temp = new ListNode(sum);
+        if(res == NULL)
+        res = temp;
+        else 
+        prev->next = temp;
+        prev = temp;
+        
+        if(A) A = A->next;
+        if(B) B = B->next;
+    }
+    if(carry > 0)
+    temp->next = new ListNode(carry);
+    return res;
 }
