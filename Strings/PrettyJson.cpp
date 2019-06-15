@@ -37,7 +37,7 @@ vector<string> Solution::prettyJSON(string A)
                     row += '\t';
                 row += A[j];
                 if(j + 1 < n && A[j+1] == ',')
-                    row += A[j++];
+                    row += A[++j];
                 ans.push_back(row);
                 i = j+1;
                 break;
