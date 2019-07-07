@@ -1,5 +1,22 @@
 // https://www.interviewbit.com/problems/longest-common-prefix/
 
+
+string Solution::longestCommonPrefix(vector<string> &A) {
+    
+   sort(A.begin(),A.end());
+   
+   int n = A.size();
+   int len = min(A[0].length(),A[n-1].length());
+   
+   int i=0;
+   while(i<len && A[0].at(i)==A[n-1].at(i))
+   i++;
+   
+   string ans = A[0].substr(0,i);
+   return ans;
+}
+
+/*
 string Solution::longestCommonPrefix(vector<string> &A) {
     // Do not write main() function.
     // Do not read input, instead use the arguments to the function.
@@ -44,3 +61,4 @@ string Solution::longestCommonPrefix(vector<string> &A) {
     
     return overall_max;
 }
+*/
