@@ -9,7 +9,32 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-// A shorter and intuitive method. Check out the next two solutions as well.
+
+bool findpairUtil(TreeNode* root, int sum,  unordered_set<int> &set) 
+{ 
+    if (root == NULL) 
+        return false; 
+    if (findpairUtil(root->left, sum, set)) 
+        return true;
+    if (set.find(sum - root->val) != set.end()) { 
+        return true; 
+    } 
+    else
+        set.insert(root->val); 
+    return findpairUtil(root->right, sum, set); 
+} 
+
+int Solution::t2Sum(TreeNode* A, int B) {
+    
+    unordered_set<int> set;
+    if (!findpairUtil(A, B, set)) 
+        return 0;
+    else
+        return 1;
+
+}
+
+/* A shorter and intuitive method. Check out the next two solutions as well.
 int Solution::t2Sum(TreeNode* A, int B) {
     // Base Case
     if(!A)return 0;
@@ -62,8 +87,7 @@ int Solution::t2Sum(TreeNode* A, int B) {
     }
     return 0;
 }
-
-
+*/
 // int Solution::t2Sum(TreeNode* A, int B) {
     
 //     stack<TreeNode*> st1;
