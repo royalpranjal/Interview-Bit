@@ -9,6 +9,36 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+vector<vector<int> > Solution::levelOrder(TreeNode* A) {
+    
+    vector<int> ans;
+    vector<vector<int> > sol;
+    queue<TreeNode* > q;
+    q.push(A);
+    
+    while(!q.empty())
+    {
+        int n = q.size();
+        //for all nodes at current level
+        while(n > 0)
+        {
+            TreeNode* node = q.front();
+            ans.push_back(node->val);
+            q.pop();
+            if (node->left != NULL)  
+                q.push(node->left);  
+            if (node->right != NULL)  
+                q.push(node->right);  
+            n--;
+        }   
+        sol.push_back(ans);
+        ans.clear();
+    }    
+    return sol;
+}
+
+/*
 vector<vector<int> > Solution::levelOrder(TreeNode* A) {
     // Do not write main() function.
     // Do not read input, instead use the arguments to the function.
@@ -48,3 +78,4 @@ vector<vector<int> > Solution::levelOrder(TreeNode* A) {
     
     return sol;
 }
+*/
