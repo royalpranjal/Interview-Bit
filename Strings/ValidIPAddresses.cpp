@@ -137,3 +137,51 @@ vector<string> Solution::restoreIpAddresses(string A) {
     
     return sol;
 }
+
+// Alternate solution using recursion
+
+// Helper function to check validity of a string
+
+bool checkValidNum(string a) {
+    return a.size() > 1 && a[0] == '0' ? 0 : stoll(a) >= 0 && stoll(a) <= 255;
+}
+
+// Helper function to check validity of a whole IP
+
+bool checkValidIP(string a) {
+    int occurences = count(a.begin(), a.end(), '.');
+    if (occurences != 3) {
+        return 0;
+    }
+    int start = 0;
+    while (a.find('.', start) != string::npos) {
+        string temp = a.substr(start, a.find('.', start) - start);
+        if (!checkValidNum(temp)) {
+            return 0;
+        }
+        start = a.find('.', start) + 1;
+    }
+    return checkValidNum(a.substr(start));
+}
+
+// Helper function to generate all possibilities
+
+void generate (string A, vector<string> &res, int index, string local) {
+    if (index >= A.size()) {
+        if (checkValidIP(local)) {
+            res.push_back(local);
+        }
+        return;
+    }
+    for (int i = 1; i <= A.size() - index; i ++) {
+        string temp = A.substr(index, i);
+        generate(A, res, index + i, local.size() ? local + "." + temp : temp);
+    }
+    return;
+}
+vector<string> Solution::restoreIpAddresses(string A) {
+    vector<string> res;
+    generate(A, res, 0, string());
+    return res;
+}
+
