@@ -14,7 +14,6 @@ int Solution::threeSumClosest(vector<int> &A, int B) {
     
     int i = 0;
     int sum, minDiff = INT_MAX;
-    int count = 0;
     
     while(i < A.size()-2){
         int left = i+1;

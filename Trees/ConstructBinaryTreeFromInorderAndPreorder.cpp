@@ -7,10 +7,10 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-int index(vector<int> v, int val, int start, int end){
+int index(vector<int> &inorder, int val, int start, int end){
     int i;
     for(i = start; i <= end; i++){
-        if(v[i] == val){
+        if(inorder[i] == val){
             return i;
         }
     }
