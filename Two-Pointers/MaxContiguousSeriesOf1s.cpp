@@ -58,7 +58,7 @@ vector<int> Solution::maxone(vector<int> &A, int B) {
             }
         }
     }
-    
+    vector<int> sol;
     if(ov_count != 0){
        for(int t = ov_st; t <= ov_end; t++){
            sol.push_back(t);
