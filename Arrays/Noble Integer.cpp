@@ -1,24 +1,25 @@
+// O(n) Solution without sorting using frequency table
+
 int Solution::solve(vector<int> &A) {
-    int n = A.size(), ans = -1, i = 0;
-    
-    if(!n){
-        return ans;
+    int n = A.size();
+    vector<int> freq(n, 0);
+    int small = 0; // stores how many elements are smaller than the current element
+
+    for(int i=0; i<n; i++){
+        if(A[i]<0)
+            small++; // intially counts all negative numbers
+        if(A[i]<0 || A[i]>=n)
+            continue; // Only numbers between 0 to n-1 can be a solution
+        freq[A[i]]++; // Count frequency of all elements in 0 to n-1
     }
-    
-    sort(A.begin(), A.end());
-    
-    while(i < n){
-        while(i+1 < n && A[i] == A[i+1]){
-            i++;
-        }
-        
-        if(n - (i+1) == A[i]){
-            ans = 1;
-            break;
-        }
-        
-        i++;
+
+    for(int i=0; i<n; i++){
+        if(freq[i]==0) // Element doesnt exist - skip
+            continue;
+        small+=freq[i];
+        if(n-small == i) // n-small elements are greater than i
+            return 1;
     }
-    
-    return ans;
+
+    return -1;
 }
